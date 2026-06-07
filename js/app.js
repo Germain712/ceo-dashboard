@@ -901,3 +901,98 @@ function deleteInvestment(id) {
   saveState();
   renderInvestments();
 }
+/* ---------------------------------------------------
+   EVENT LISTENERS + INIT
+--------------------------------------------------- */
+
+/* -------------------------
+   BUTTON LISTENERS
+------------------------- */
+
+document.getElementById("add-priority-btn")?.addEventListener("click", () => {
+  openPriorityForm();
+});
+
+document.getElementById("add-todo-btn")?.addEventListener("click", () => {
+  openTodoForm();
+});
+
+document.getElementById("add-project-btn")?.addEventListener("click", () => {
+  openProjectForm();
+});
+
+document.getElementById("add-email-btn")?.addEventListener("click", () => {
+  openEmailForm();
+});
+
+document
+  .getElementById("add-transaction-btn")
+  ?.addEventListener("click", () => {
+    openTransactionForm();
+  });
+
+document.getElementById("add-investment-btn")?.addEventListener("click", () => {
+  openInvestmentForm();
+});
+
+/* -------------------------
+   THEME TOGGLE
+------------------------- */
+
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "ceoDashboard.theme",
+    document.body.classList.contains("dark") ? "dark" : "light",
+  );
+});
+
+/* -------------------------
+   LOAD THEME
+------------------------- */
+
+function loadTheme() {
+  const saved = localStorage.getItem("ceoDashboard.theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark");
+  }
+}
+
+/* -------------------------
+   INITIALIZE NOTES
+------------------------- */
+
+function initNotes() {
+  const textarea = document.getElementById("quick-notes");
+  if (!textarea) return;
+
+  textarea.value = state.notes || "";
+
+  textarea.addEventListener("input", () => {
+    state.notes = textarea.value;
+    saveState();
+  });
+}
+
+/* -------------------------
+   INIT FUNCTION
+------------------------- */
+
+function init() {
+  loadState();
+  loadTheme();
+  renderToday();
+
+  renderPriorities();
+  renderTodos();
+  renderProjects();
+  renderEmails();
+  renderFinances();
+  renderInvestments();
+  renderNotes();
+  renderHabits();
+
+  initNotes();
+}
+
+init();
