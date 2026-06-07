@@ -534,3 +534,271 @@ function attachModalCancel() {
     cancelBtn.addEventListener("click", closeModal);
   }
 }
+/* ---------------------------------------------------
+   FORM BUILDERS (PROFESSIONAL FULL FORMS)
+--------------------------------------------------- */
+
+/**
+ * Build a <select> from an array
+ */
+function buildSelect(name, options, selected = "") {
+  return `
+    <label>${name}</label>
+    <select name="${name.toLowerCase()}">
+      ${options
+        .map(
+          (opt) =>
+            `<option value="${opt}" ${opt === selected ? "selected" : ""}>${opt}</option>`,
+        )
+        .join("")}
+    </select>
+  `;
+}
+
+/**
+ * Build a text input
+ */
+function buildInput(label, name, value = "", type = "text") {
+  return `
+    <label>${label}</label>
+    <input type="${type}" name="${name}" value="${value}" />
+  `;
+}
+
+/**
+ * Build a textarea
+ */
+function buildTextarea(label, name, value = "") {
+  return `
+    <label>${label}</label>
+    <textarea name="${name}">${value}</textarea>
+  `;
+}
+
+/* ---------------------------------------------------
+   PRIORITY FORM
+--------------------------------------------------- */
+
+function openPriorityForm() {
+  const formHtml = `
+    ${buildInput("Title (required)", "title")}
+    ${buildSelect("Category", CATEGORY_MAP.priorities)}
+    ${buildSelect("Priority", PRIORITY_OPTIONS)}
+    ${buildInput("Date", "date", todayISO(), "date")}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Add Priority", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const title = form.title.value.trim();
+
+    if (!title) return; // soft validation
+
+    addPriority({
+      id: generateId(),
+      title,
+      category: form.category.value,
+      priority: form.priority.value,
+      date: form.date.value,
+      notes: form.notes.value,
+    });
+
+    closeModal();
+  });
+}
+
+/* ---------------------------------------------------
+   TODO FORM
+--------------------------------------------------- */
+
+function openTodoForm() {
+  const formHtml = `
+    ${buildInput("Task Title (required)", "title")}
+    ${buildSelect("Category", CATEGORY_MAP.todos)}
+    ${buildSelect("Priority", PRIORITY_OPTIONS)}
+    ${buildInput("Due Date", "due", todayISO(), "date")}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Add Task", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const title = form.title.value.trim();
+    if (!title) return;
+
+    addTodo({
+      id: generateId(),
+      title,
+      category: form.category.value,
+      priority: form.priority.value,
+      due: form.due.value,
+      notes: form.notes.value,
+      completed: false,
+    });
+
+    closeModal();
+  });
+}
+
+/* ---------------------------------------------------
+   PROJECT FORM
+--------------------------------------------------- */
+
+function openProjectForm() {
+  const formHtml = `
+    ${buildInput("Project Name (required)", "name")}
+    ${buildSelect("Area", CATEGORY_MAP.projects)}
+    ${buildInput("Deadline", "deadline", todayISO(), "date")}
+    ${buildInput("Progress (%)", "progress", "0", "number")}
+    ${buildTextarea("Next Action", "nextAction")}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Add Project", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const name = form.name.value.trim();
+    if (!name) return;
+
+    addProject({
+      id: generateId(),
+      name,
+      area: form.area.value,
+      deadline: form.deadline.value,
+      progress: Number(form.progress.value) || 0,
+      nextAction: form.nextAction.value,
+      notes: form.notes.value,
+    });
+
+    closeModal();
+  });
+}
+
+/* ---------------------------------------------------
+   EMAIL FORM
+--------------------------------------------------- */
+
+function openEmailForm() {
+  const formHtml = `
+    ${buildInput("Subject (required)", "subject")}
+    ${buildInput("From", "from")}
+    ${buildSelect("Category", CATEGORY_MAP.emails)}
+    ${buildInput("Reply By", "due", todayISO(), "date")}
+    ${buildSelect("Status", ["Open", "Waiting", "Done"])}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Track Email", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const subject = form.subject.value.trim();
+    if (!subject) return;
+
+    addEmail({
+      id: generateId(),
+      subject,
+      from: form.from.value,
+      category: form.category.value,
+      due: form.due.value,
+      status: form.status.value,
+      notes: form.notes.value,
+    });
+
+    closeModal();
+  });
+}
+
+/* ---------------------------------------------------
+   TRANSACTION FORM
+--------------------------------------------------- */
+
+function openTransactionForm() {
+  const formHtml = `
+    ${buildInput("Title (required)", "title")}
+    ${buildSelect("Category", CATEGORY_MAP.finances)}
+    ${buildInput("Amount (£)", "amount", "", "number")}
+    ${buildInput("Date", "date", todayISO(), "date")}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Add Transaction", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const title = form.title.value.trim();
+    if (!title) return;
+
+    addTransaction({
+      id: generateId(),
+      title,
+      category: form.category.value,
+      amount: Number(form.amount.value) || 0,
+      date: form.date.value,
+      notes: form.notes.value,
+    });
+
+    closeModal();
+  });
+}
+
+/* ---------------------------------------------------
+   INVESTMENT FORM
+--------------------------------------------------- */
+
+function openInvestmentForm() {
+  const formHtml = `
+    ${buildInput("Asset Name (required)", "name")}
+    ${buildSelect("Category", CATEGORY_MAP.investments)}
+    ${buildInput("Units", "units", "", "number")}
+    ${buildInput("Buy Price (£)", "buyPrice", "", "number")}
+    ${buildInput("Current Price (£)", "currentPrice", "", "number")}
+    ${buildTextarea("Notes", "notes")}
+  `;
+
+  openModal(modalWrapper("Add Investment", formHtml));
+  attachModalCancel();
+
+  document.querySelector("#modal-save-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.querySelector(".modal-form");
+    const name = form.name.value.trim();
+    if (!name) return;
+
+    const units = Number(form.units.value) || 0;
+    const currentPrice = Number(form.currentPrice.value) || 0;
+
+    addInvestment({
+      id: generateId(),
+      name,
+      category: form.category.value,
+      units,
+      buyPrice: Number(form.buyPrice.value) || 0,
+      currentPrice,
+      currentValue: units * currentPrice,
+      notes: form.notes.value,
+    });
+
+    closeModal();
+  });
+}
