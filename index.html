@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
+    <!-- TOP BAR -->
     <header class="topbar">
       <h1>CEO Dashboard</h1>
       <div class="topbar-meta">
@@ -15,56 +17,65 @@
       </div>
     </header>
 
+    <!-- DASHBOARD GRID -->
     <main class="dashboard">
+      <!-- PRIORITIES -->
       <section class="panel panel-wide" id="priorities-panel">
         <h2>Today & This Week</h2>
         <div id="priorities-list"></div>
         <button class="btn-primary" id="add-priority-btn">
-          + Add priority
+          + Add Priority
         </button>
       </section>
 
+      <!-- TO‑DO LIST -->
       <section class="panel" id="todo-panel">
         <h2>To‑Do List</h2>
         <div id="todo-list"></div>
-        <button class="btn-primary" id="add-todo-btn">+ Add task</button>
+        <button class="btn-primary" id="add-todo-btn">+ Add Task</button>
       </section>
 
+      <!-- EMAILS -->
       <section class="panel" id="email-panel">
         <h2>Email Focus</h2>
         <div id="email-list"></div>
-        <button class="btn-secondary" id="add-email-btn">+ Track email</button>
+        <button class="btn-secondary" id="add-email-btn">+ Track Email</button>
       </section>
 
+      <!-- FINANCES -->
       <section class="panel" id="finances-panel">
         <h2>Finances</h2>
         <div id="finance-summary"></div>
         <div id="finance-list"></div>
         <button class="btn-secondary" id="add-transaction-btn">
-          + Add transaction
+          + Add Transaction
         </button>
       </section>
 
+      <!-- INVESTMENTS -->
       <section class="panel" id="investments-panel">
         <h2>Investments</h2>
         <div id="investments-summary"></div>
         <div id="investments-list"></div>
         <button class="btn-secondary" id="add-investment-btn">
-          + Add holding
+          + Add Holding
         </button>
       </section>
 
+      <!-- PROJECTS -->
       <section class="panel panel-wide" id="projects-panel">
         <h2>Projects</h2>
         <div id="projects-list"></div>
-        <button class="btn-primary" id="add-project-btn">+ Add project</button>
+        <button class="btn-primary" id="add-project-btn">+ Add Project</button>
       </section>
 
+      <!-- HABITS -->
       <section class="panel" id="habits-panel">
         <h2>Habits</h2>
         <div id="habits-list"></div>
       </section>
 
+      <!-- NOTES -->
       <section class="panel" id="notes-panel">
         <h2>Quick Notes</h2>
         <textarea
@@ -74,6 +85,14 @@
         ></textarea>
       </section>
     </main>
+
+    <!-- UNIVERSAL MODAL OVERLAY -->
+    <div id="modal-overlay" class="hidden"></div>
+
+    <!-- UNIVERSAL MODAL CONTAINER -->
+    <div id="modal" class="hidden">
+      <div id="modal-content"></div>
+    </div>
 
     <script src="js/app.js"></script>
   </body>
