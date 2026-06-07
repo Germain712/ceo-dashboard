@@ -460,3 +460,77 @@ function renderHabits() {
     </div>
   `;
 }
+/* ---------------------------------------------------
+   UNIVERSAL MODAL ENGINE
+--------------------------------------------------- */
+
+const modal = document.getElementById("modal");
+const modalOverlay = document.getElementById("modal-overlay");
+const modalContent = document.getElementById("modal-content");
+
+/**
+ * Open modal with dynamic HTML content
+ */
+function openModal(html) {
+  modalContent.innerHTML = html;
+
+  modal.classList.add("active");
+  modalOverlay.classList.add("active");
+
+  // Prevent scroll behind modal
+  document.body.style.overflow = "hidden";
+}
+
+/**
+ * Close modal
+ */
+function closeModal() {
+  modal.classList.remove("active");
+  modalOverlay.classList.remove("active");
+
+  // Allow scrolling again
+  document.body.style.overflow = "";
+}
+
+/**
+ * Close modal when clicking overlay
+ */
+modalOverlay.addEventListener("click", () => {
+  closeModal();
+});
+
+/**
+ * Close modal on ESC key
+ */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeModal();
+  }
+});
+
+/**
+ * Helper to wrap form HTML with modal structure
+ */
+function modalWrapper(title, formHtml) {
+  return `
+    <h3>${title}</h3>
+    <form class="modal-form">
+      ${formHtml}
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+        <button type="submit" class="btn-primary" id="modal-save-btn">Save</button>
+      </div>
+    </form>
+  `;
+}
+
+/**
+ * Attach cancel button listener after modal opens
+ */
+function attachModalCancel() {
+  const cancelBtn = document.getElementById("modal-cancel-btn");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", closeModal);
+  }
+}
