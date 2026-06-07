@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reuben’s CEO Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>CEO Dashboard</h1>
+      <div class="topbar-meta">
+        <span id="today-date"></span>
+        <button id="theme-toggle" aria-label="Toggle dark mode">🌓</button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="panel panel-wide" id="priorities-panel">
+        <h2>Today & This Week</h2>
+        <div id="priorities-list"></div>
+        <button class="btn-primary" id="add-priority-btn">
+          + Add priority
+        </button>
+      </section>
+
+      <section class="panel" id="email-panel">
+        <h2>Email Focus</h2>
+        <div id="email-list"></div>
+        <button class="btn-secondary" id="add-email-btn">+ Track email</button>
+      </section>
+
+      <section class="panel" id="finances-panel">
+        <h2>Finances</h2>
+        <div id="finance-summary"></div>
+        <div id="finance-list"></div>
+        <button class="btn-secondary" id="add-transaction-btn">
+          + Add transaction
+        </button>
+      </section>
+
+      <section class="panel" id="investments-panel">
+        <h2>Investments</h2>
+        <div id="investments-summary"></div>
+        <div id="investments-list"></div>
+        <button class="btn-secondary" id="add-investment-btn">
+          + Add holding
+        </button>
+      </section>
+
+      <section class="panel panel-wide" id="projects-panel">
+        <h2>Projects</h2>
+        <div id="projects-list"></div>
+        <button class="btn-primary" id="add-project-btn">+ Add project</button>
+      </section>
+
+      <section class="panel" id="habits-panel">
+        <h2>Habits</h2>
+        <div id="habits-list"></div>
+      </section>
+
+      <section class="panel" id="notes-panel">
+        <h2>Quick Notes</h2>
+        <textarea
+          id="quick-notes"
+          rows="6"
+          placeholder="Brain dump, ideas, things to remember..."
+        ></textarea>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
