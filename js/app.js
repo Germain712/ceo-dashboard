@@ -993,6 +993,125 @@ function init() {
   renderHabits();
 
   initNotes();
+  renderFinanceChart();
+  renderInvestmentChart();
 }
 
 init();
+
+/* ---------------------------------------------------
+   FINANCE CHART (Income vs Expenses)
+--------------------------------------------------- */
+
+let financeChart = null;
+
+function renderFinanceChart() {
+  const ctx = document.getElementById("finance-chart");
+  if (!ctx) return;
+
+  // Destroy old chart if exists
+  if (financeChart) financeChart.destroy();
+
+  // Group transactions by month
+  const monthly = {};
+
+  state.finances.forEach((tx) => {
+    const date = new Date(tx.date);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+    if (!monthly[key]) {
+      monthly[key] = { income: 0, expenses: 0 };
+    }
+
+    const amount = Number(tx.amount) || 0;
+    if (amount >= 0) monthly[key].income += amount;
+    else monthly[key].expenses += Math.abs(amount);
+  });
+
+  const labels = Object.keys(monthly).sort();
+  const incomeData = labels.map((m) => monthly[m].income);
+  const expenseData = labels.map((m) => monthly[m].expenses);
+
+  financeChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Income",
+          data: incomeData,
+          backgroundColor: "rgba(34, 197, 94, 0.6)",
+        },
+        {
+          label: "Expenses",
+          data: expenseData,
+          backgroundColor: "rgba(239, 68, 68, 0.6)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+      },
+      scales: {
+        y: { beginAtZero: true },
+      },
+    },
+  });
+}
+renderFinanceChart();
+
+/* ---------------------------------------------------
+   INVESTMENT CHART (Portfolio Allocation)
+--------------------------------------------------- */
+
+let investmentChart = null;
+
+function renderInvestmentChart() {
+  const ctx = document.getElementById("investment-chart");
+  if (!ctx) return;
+
+  if (investmentChart) investmentChart.destroy();
+
+  // Group by category
+  const categories = {};
+
+  state.investments.forEach((inv) => {
+    const cat = inv.category || "Other";
+    const value = Number(inv.currentValue) || 0;
+
+    if (!categories[cat]) categories[cat] = 0;
+    categories[cat] += value;
+  });
+
+  const labels = Object.keys(categories);
+  const values = Object.values(categories);
+
+  investmentChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels,
+      datasets: [
+        {
+          data: values,
+          backgroundColor: [
+            "#3b82f6",
+            "#10b981",
+            "#f59e0b",
+            "#ef4444",
+            "#8b5cf6",
+            "#14b8a6",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom" },
+      },
+    },
+  });
+}
+renderInvestmentChart();

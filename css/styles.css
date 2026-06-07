@@ -394,3 +394,93 @@ body {
     grid-column: span 4;
   }
 }
+
+/* ---------------------------------------------------
+   CALENDAR PANEL (Minimal Clean Notion-Style)
+--------------------------------------------------- */
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cal-nav-btn {
+  background: var(--accent-soft);
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--accent);
+  transition: background 0.2s ease;
+}
+
+.cal-nav-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+#cal-month-label {
+  font-size: 1.1rem;
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-cell {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-height: 80px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.calendar-cell:hover {
+  background: var(--accent-soft);
+}
+
+.calendar-date {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.calendar-cell.today {
+  border: 2px solid var(--accent);
+}
+
+.calendar-event-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+.calendar-event-tooltip {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  display: none;
+  z-index: 20;
+}
+
+.calendar-cell:hover .calendar-event-tooltip {
+  display: block;
+}

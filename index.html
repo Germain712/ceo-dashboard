@@ -19,6 +19,19 @@
 
     <!-- DASHBOARD GRID -->
     <main class="dashboard">
+      <!-- CALENDAR PANEL -->
+      <section class="panel panel-wide" id="calendar-panel">
+        <div class="calendar-header">
+          <button id="cal-prev" class="cal-nav-btn">‹</button>
+          <h2 id="cal-month-label">Month</h2>
+          <button id="cal-next" class="cal-nav-btn">›</button>
+        </div>
+
+        <div class="calendar-grid" id="calendar-grid">
+          <!-- Calendar days will be injected here -->
+        </div>
+      </section>
+
       <!-- PRIORITIES -->
       <section class="panel panel-wide" id="priorities-panel">
         <h2>Today & This Week</h2>
@@ -50,6 +63,7 @@
         <button class="btn-secondary" id="add-transaction-btn">
           + Add Transaction
         </button>
+        <canvas id="finance-chart" height="120"></canvas>
       </section>
 
       <!-- INVESTMENTS -->
@@ -60,6 +74,7 @@
         <button class="btn-secondary" id="add-investment-btn">
           + Add Holding
         </button>
+        <canvas id="investment-chart" height="120"></canvas>
       </section>
 
       <!-- PROJECTS -->
@@ -95,5 +110,6 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>
