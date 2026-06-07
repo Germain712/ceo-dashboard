@@ -802,3 +802,102 @@ function openInvestmentForm() {
     closeModal();
   });
 }
+/* ---------------------------------------------------
+   CRUD LOGIC — ADD + DELETE + SAVE + RENDER
+--------------------------------------------------- */
+
+/* -------------------------
+   PRIORITIES
+------------------------- */
+
+function addPriority(item) {
+  state.priorities.unshift(item);
+  saveState();
+  renderPriorities();
+}
+
+function deletePriority(id) {
+  state.priorities = state.priorities.filter((p) => p.id !== id);
+  saveState();
+  renderPriorities();
+}
+
+/* -------------------------
+   TODOS
+------------------------- */
+
+function addTodo(task) {
+  state.todos.unshift(task);
+  saveState();
+  renderTodos();
+}
+
+function deleteTodo(id) {
+  state.todos = state.todos.filter((t) => t.id !== id);
+  saveState();
+  renderTodos();
+}
+
+/* -------------------------
+   PROJECTS
+------------------------- */
+
+function addProject(project) {
+  state.projects.unshift(project);
+  saveState();
+  renderProjects();
+}
+
+function deleteProject(id) {
+  state.projects = state.projects.filter((p) => p.id !== id);
+  saveState();
+  renderProjects();
+}
+
+/* -------------------------
+   EMAILS
+------------------------- */
+
+function addEmail(email) {
+  state.emails.unshift(email);
+  saveState();
+  renderEmails();
+}
+
+function deleteEmail(id) {
+  state.emails = state.emails.filter((e) => e.id !== id);
+  saveState();
+  renderEmails();
+}
+
+/* -------------------------
+   FINANCES
+------------------------- */
+
+function addTransaction(tx) {
+  state.finances.unshift(tx);
+  saveState();
+  renderFinances();
+}
+
+function deleteTransaction(id) {
+  state.finances = state.finances.filter((t) => t.id !== id);
+  saveState();
+  renderFinances();
+}
+
+/* -------------------------
+   INVESTMENTS
+------------------------- */
+
+function addInvestment(inv) {
+  state.investments.unshift(inv);
+  saveState();
+  renderInvestments();
+}
+
+function deleteInvestment(id) {
+  state.investments = state.investments.filter((i) => i.id !== id);
+  saveState();
+  renderInvestments();
+}
